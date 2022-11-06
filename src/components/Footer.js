@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer>
       <Container>
-        <p>Discover London </p>
+        <p></p>
       </Container>
     </footer>
 )

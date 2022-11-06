@@ -1,18 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.c3577738.css",
-    "main.js": "/static/js/main.be21386c.js",
+    "main.css": "/static/css/main.45ce9a6c.css",
+    "main.js": "/static/js/main.b72a670a.js",
     "static/media/festival1.jpg": "/static/media/festival1.1939995669e72bdbbaf8.jpg",
-    "static/media/Ledlight.otf": "/static/media/Ledlight.d0a35b4c71ae9bfe32b7.otf",
+    "static/media/DirtyBrush-BZYV.ttf": "/static/media/DirtyBrush-BZYV.3a58541f797c3895397a.ttf",
     "static/media/Roboto-Regular.ttf": "/static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
+    "static/media/Roboto-Black.ttf": "/static/media/Roboto-Black.cf56c1b149d0a5e8d7c6.ttf",
+    "static/media/Roboto-Bold.ttf": "/static/media/Roboto-Bold.f80816a5455d171f948d.ttf",
     "static/media/Roboto-Light.ttf": "/static/media/Roboto-Light.333da16a3f3cc391d087.ttf",
-    "static/media/Neonlight.ttf": "/static/media/Neonlight.b0f581c427424c101e20.ttf",
     "index.html": "/index.html",
-    "main.c3577738.css.map": "/static/css/main.c3577738.css.map",
-    "main.be21386c.js.map": "/static/js/main.be21386c.js.map"
+    "main.45ce9a6c.css.map": "/static/css/main.45ce9a6c.css.map",
+    "main.b72a670a.js.map": "/static/js/main.b72a670a.js.map"
   },
   "entrypoints": [
-    "static/css/main.c3577738.css",
-    "static/js/main.be21386c.js"
+    "static/css/main.45ce9a6c.css",
+    "static/js/main.b72a670a.js"
   ]
 }

@@ -39,7 +39,7 @@ body{
   a, p{
     font-family: roboto-black;
     color: $secondary;
-    font-weight: 900;
+    font-size: 20px;
     margin: auto;
     &:hover{
       color: lighten($secondary, 30%)
@@ -55,6 +55,7 @@ body{
     margin-left: 20px;
   }
 }
+
 //Home
 .home{
   background-image: url('/../assets/festival1.jpg');
@@ -82,7 +83,7 @@ body{
     color: $secondary;
     font-size: large;
     padding: 10px 40px;
-    font-family: roboto-regular;
+    font-family: roboto-black;
   }
 }
 //event index
@@ -172,7 +173,6 @@ body{
   }
   .filters-left{
     display: flex;
-    // justify-content: ce;
   }
   .type-container, .date-container, .search-container, .tickets-container{
     display: flex;
@@ -191,11 +191,12 @@ body{
     }
   }
   .filter-input{
-    height: 30px;
+    height: 25px;
     border-radius: 7px;
   }
   label{
-    font-size: 0.85rem;
+    font-size: 1rem;
+    font-family: roboto-bold;
     width: 100%;
     color: $secondary;
     font-weight: bold;
@@ -220,7 +221,6 @@ body{
 }
 //Single Page
 .eventSingle{
-  // background-image: url(‘https://media.istockphoto.com/photos/blue-defocused-blurred-motion-abstract-background-picture-id1010238190?b=1&k=20&m=1010238190&s=170667a&w=0&h=s7RNBDeGfW-BLfrSgZH2svnghqIbdIsXsChJEKxZf28=’);
   background-position: center;
   background-size: cover;
   color: $primary;
@@ -264,7 +264,9 @@ body{
     margin-top: 30px;
   }
   .imageBox{
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
   }
   .singleImage {
     border: 1px solid $primary;

@@ -46,7 +46,7 @@ return (
       </Container>
     </div>
     
-    {luckyId.length > 0 && <EventSingle luckyId={luckyId}/>}
+    {luckyId.length > 0 && <EventSingle luckyId={luckyId} />}
   </>
 )
 
