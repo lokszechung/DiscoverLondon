@@ -24,7 +24,7 @@ const TheNavbar = ({ setEventCode, setSelectedDate, setMinDate, setMaxDate, setS
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end'>
           <Nav>
-            <Nav.Link onClick={resetAll} as={Link} to="/events"><strong>See All Event</strong></Nav.Link>
+            <Nav.Link onClick={resetAll} as={Link} to="/events"><strong>See All Events</strong></Nav.Link>
             <p className="splitter" style={ {color: 'orangered', padding: '6px' } } >|</p>
             <Nav.Link as={Link} to="/events/lucky"><strong>I'm Feeling Lucky</strong></Nav.Link>
           </Nav>
