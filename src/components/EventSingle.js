@@ -4,7 +4,7 @@ import { faCalendarDays, faClock, faLocationDot, faSterlingSign, faUser } from "
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import axios from "axios"
 import { useState, useEffect } from "react"
-import { Col, Container, Row } from "react-bootstrap"
+import { Col, Container, Row, Spinner } from "react-bootstrap"
 import { useParams } from "react-router-dom"
 import Footer from "./Footer"
 
@@ -13,6 +13,7 @@ import TheNavbar from "./TheNavbar"
 
 const EventSingle = ({ luckyId }) => {
   const [ event, setEvent ] = useState(null)
+  const [ error, setError ] = useState(null)
 
   let { id } = useParams()
 
@@ -27,6 +28,7 @@ const EventSingle = ({ luckyId }) => {
         console.log(data.results)
       } catch (err) {
         console.log(err)
+        setError(err.message ? err.message : err)
       }
     }
     getEvent()
@@ -69,8 +71,8 @@ const EventSingle = ({ luckyId }) => {
                 </>} */}
               </div>
             
-              <Row className="mb-4">
-                <Col className="imageBox sm-text-center">
+              <Row className="mb-4 d-flex flex-column flex-md-row">
+                <Col className="imageBox d-flex justify-content-center justify-content-md-end align-items-end sm-text-center">
                   <img src={event.largeimageurl} className="singleImage" alt="event"/>
                 </Col>
                 <Col className="d-flex flex-column justify-content-end">
@@ -86,7 +88,7 @@ const EventSingle = ({ luckyId }) => {
                   </div>
                 </Col>
               </Row>
-              <button onClick={findTickets} className="btn btn-warning">Find Tickets</button>
+              <button onClick={findTickets} className="find btn btn-warning">Find Tickets</button>
               <hr />
               <Row className="mt-4">
                 <div className="mapBox">
@@ -97,11 +99,15 @@ const EventSingle = ({ luckyId }) => {
                   src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyALd_bYvfEc51wNsGxL8ZHFHjYk4aHi_mA&q=${event.venue.latitude},${event.venue.longitude}`}>
                   </iframe>
                 </div>
-              
               </Row>
             </>
             :
-            <h1>something went wrong</h1>
+            error ?
+            <Container className="no-container">
+              <h1>Uh oh! Something went wrong...</h1>
+            </Container>
+              :
+              <Spinner className="my-5" animation="border" variant="warning" />
           }
         </Container>
         <Footer />

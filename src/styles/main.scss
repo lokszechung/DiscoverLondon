@@ -40,7 +40,6 @@ body{
     font-family: roboto-black;
     color: $secondary;
     font-size: 20px;
-    margin: auto;
     &:hover{
       color: lighten($secondary, 30%)
     }
@@ -49,10 +48,19 @@ body{
     }
   }
   .slogan{
-    font-size: 45px;
+    font-size: 40px;
     font-family: $titlefont;
     color: $primary;
+    margin-left: 0;
+    margin-left: 0;
+    height: 62px;
+  }
+  @media (min-width: 576px){
+    .slogan{
+    font-size: 45px;
     margin-left: 20px;
+
+    }
   }
 }
 
@@ -60,17 +68,17 @@ body{
 .home{
   background-image: url('/../assets/festival1.jpg');
   background-size: cover;
-  background-position: center;
+  background-position: 45%;
   background-repeat: no-repeat;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   .btn{
     background-color: rgba(0, 0, 0, 0.7);
-    margin: 200px 0 -70px 0;
     border-radius: 30px;
+    margin: 100px 0 20px 0;
   }
   .title{
     padding: 40px;
@@ -84,6 +92,12 @@ body{
     font-size: large;
     padding: 10px 40px;
     font-family: roboto-black;
+  }
+  @media (min-width: 576px){
+    .btn{
+      margin: 150px 0 -50px 0;
+
+    }
   }
 }
 //event index
@@ -158,12 +172,11 @@ body{
 //Filters
 .filters{
   padding-bottom: 20px;
-
   background-color: black;
-  height: 90px;
+  min-height: 90px;
   position: sticky;
-  top: 56px;
-  z-index: 1100;
+  top: 70px;
+  z-index: 1000;
   .filters-container{
     display: flex;
     flex-direction: row;
@@ -197,9 +210,10 @@ body{
   label{
     font-size: 1rem;
     font-family: roboto-bold;
-    width: 100%;
+    // width: 100%;
     color: $secondary;
     font-weight: bold;
+    padding-right: 5px;
   }
   .react-datepicker-wrapper{
     width: 200px;
@@ -207,12 +221,12 @@ body{
   @media (max-width: 767px) {
     .filters-container{
       flex-direction: column;
-      align-items: center;
+      align-items: start;
       justify-content: center;
     }
     .type-container, .date-container, .search-container, .tickets-container{
       align-items: center;
-      justify-content: center;
+      justify-content: start;
       margin: 3px;
       flex-direction: row;
       width: 100%;
@@ -244,8 +258,9 @@ body{
       color: $secondary;
     }
   }
-  button{
-    width: 910px;
+  .find.btn{
+    width: 100%;
+    max-width: 910px;
     color: white;
     background-color: $secondary;
     border: 1px solid $secondary
@@ -263,11 +278,11 @@ body{
     padding-left: 20px;
     margin-top: 30px;
   }
-  .imageBox{
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-  }
+  // .imageBox{
+  //   display: flex;
+  //   justify-content: flex-end;
+  //   align-items: flex-end;
+  // }
   .singleImage {
     border: 1px solid $primary;
     width: 300px;
