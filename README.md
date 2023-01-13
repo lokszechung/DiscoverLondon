@@ -7,7 +7,7 @@ The aim of this project was to use React to create an application that consumed 
 - **Project timeframe:** 1.5 days
 - **Team size:** 2 
 
-[Check it out here!](discover-london-events.netlify.app)
+[Check it out here!](https://discover-london-events.netlify.app/)
 
 ![Discover London Homepage](/readme-images/discover-london-1.png)
 _Homepage_
