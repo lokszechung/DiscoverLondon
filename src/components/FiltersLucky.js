@@ -46,7 +46,6 @@ const FiltersLucky = ({ eventCode, setEventCode, selectedDate, setSelectedDate, 
     const maxDateFormat = `&maxDate=${date.toISOString().split('T')[0]}`
     setMinDate(minDateFormat)
     setMaxDate(maxDateFormat)
-    console.log(minDateFormat, maxDateFormat)
   }
 
 

@@ -38,13 +38,13 @@ body{
   z-index: 1100;
   a, p{
     font-family: roboto-black;
-    color: $secondary;
+    color: $primary;
     font-size: 20px;
     &:hover{
-      color: lighten($secondary, 30%)
+      color: lighten($primary, 40%)
     }
     &::after{
-      color: $secondary;
+      color: $primary
     }
   }
   .slogan{
@@ -88,7 +88,7 @@ body{
     box-shadow: 0 0 100px rgb(255, 239, 199);
   }
   .lucky{
-    color: $secondary;
+    color: $primary;
     font-size: large;
     padding: 10px 40px;
     font-family: roboto-black;
@@ -112,8 +112,8 @@ body{
   .card{
     border: 1px solid $primary;
     background-color: rgba(0,0,0,0.4);
-    // background-color: rgba(255,255,255,0.1);
-    // box-shadow: 0 0 10px lighten($primary, 30%);
+    background-color: rgba(255,255,255,0.1);
+    box-shadow: 0 0 10px lighten($primary, 30%);
   }
   a{
     text-decoration: none;
@@ -211,7 +211,7 @@ body{
     font-size: 1rem;
     font-family: roboto-bold;
     // width: 100%;
-    color: $secondary;
+    color: $primary;
     font-weight: bold;
     padding-right: 5px;
   }
@@ -248,14 +248,14 @@ body{
     margin: 20px 5px 40px 5px;
     h3{
       font-size: 1.3em;
-      color: $secondary;
+      color: $primary;
     }
   }
   h2{
     // text-decoration: underline;
     small{
       font-size: 0.5em;
-      color: $secondary;
+      color: $primary;
     }
   }
   .find.btn{
@@ -263,7 +263,10 @@ body{
     max-width: 910px;
     color: white;
     background-color: $secondary;
-    border: 1px solid $secondary
+    border: 1px solid $secondary;
+    &:hover{
+      background-color: lighten($secondary, 10%);
+    }
   }
   p{
     margin: 0;

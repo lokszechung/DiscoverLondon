@@ -1,138 +1,243 @@
-# Discover London
-#### Pair project  |  2 days  |  Front end
+# Discover London ***REDEPLOY***
 
-A React.js application leveraging Skiddle’s open API to display upcoming events in London with all the relevant filters, event information, an embedded map with the venue location, and a link to find tickets. It includes an ‘I’m feeling lucky’ feature that displays a random event which can be  filtered further by date and event type.
+This is my second project completed at the end of week 6 of General Assembly's Software Engineering bootcamp, having learned some advanced JavaScript, and the basic fundamentals of APIs and React for two weeks.
 
-[Visit site](https://discoverlondon.netlify.app)
+The aim of this project was to use React to create an application that consumed a public API. We used the Skiddle API to display events in and around London, and the user can filter the events according to type of event, date and ticket availability. The user can also click through on the main display page to get more information on specific events, or use the ‘I’m feeling lucky’ feature to get a random event recommended to them. 
 
+- **Project timeframe:** 1.5 days
+- **Team size:** 2 
 
-## Technologies used
-- Third party API
-- React.js
-- Browser router, routes, links and useNavigate from React Router Dom
-- useState and useEffect hooks
-- Async function for Axios get requests to retrieve API data
-- Google Maps embedding
-- HTML5, CSS3, SASS
+[Check it out here!](discover-london-events.netlify.app)
+
+![Discover London Homepage](/readme-images/discover-london-1.png)
+_Homepage_
+![Discover London Index Page](/readme-images/discover-london-2.png)
+_Index Page_
+![Discover London Single Page](/readme-images/discover-london-3.png)
+_Single Page_
+
+#### Technologies Used
+- JavaScript
+- React
+- CSS3, Sass
 - Bootstrap
-- Font Face
-- Font Awesome
-- React date picker
+- Git & GitHub
+- Insomnia
 
+#### Brief
+- The app must consume a public API
+- Must have several components
+- The app can have a router
+- Include wireframes designed before building the app
+- Must be deployed online and made accessible to the public
 
-## Brief
-The project must:
-- Consume a public API
-- Include several components
-- Have a router
-- Include wireframes
-- Be deployed online
-
+---
 
 ## Planning
-Lok Sze and I began by looking into publicly available APIs and settled on the Skiddle events API as it seemed fairly well built out. We drew up a wireframe on Excalidraw of each of the main pages and how the components would fit together. With a goal in mind, we each took a task to start working on and maintained communication throughout to reprioritise actions. Rather than strictly splitting up the workload, we worked together throughout, each taking on new tasks as we progressed. This approach allowed us both to be fully involved with the whole production and problem solving process whilst minimising duplication of workload by reusing eachother’s code where possible.
 
-![Wireframe](/assets/planning/wireframe.png)
-<!-- <img src="./assets/planning/wireframe.png" width="80%" > -->
+### Wireframe & Pseudocode - Day 1
+
+My partner and I looked into public APIs and decided to use the Skiddle API to display events. We found that this displayed events all around the UK, so in order that we could keep the project manageable, we scaled this down to use only events in London. 
+
+We went onto Excalidraw and began wireframing the app, and decided which components to include and which features we would incorporate. Initially, we divided up the components between us; I would take the index page and my partner would take the home page and single events page. However, we both wanted to be involved on all aspects of the app, and so we decided to divide up some features on each component. This allowed both of us to work on all aspects; for instance I would take the index page, but give some of the filter features to my partner to work on. 
+
+We communicated often over Zoom and Slack to ensure we were on track, to problem-solve and to discuss any changes that may have needed to be implemented. 
+
+![wireframe](/readme-images/wireframe.png)
+_Wireframe_
+
+---
 
 ## Build Process
-I started by setting up the main pages and their browser routes with React Router, navigable via a rough Navbar at the top of the page, so that we had a website skeleton to work from. 
 
-Charged with the single event page, I set an :id placeholder in the browser route, to be obtained with useParams, in order to retrieve the corresponding event via a get request. With the Events Index page still in production, I started by creating the page as a stand alone component, preparing it to be linked up to the event listings later on. Following Skiddle’s documentation, I set an ID parameter on the Axios get request inside an async useEffect to retrieve a single event which I provisionally hardcoded. With the API response set in state, I built up the page around this single event, displaying the relevant information. I added a ‘find tickets’ button that performs a google search and embedded a google map of the venue location.
-```
-<iframe
-  title={event.id}
-  width="70%"
-  height="300"
-  src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyALd_bYvfEc51wNsGxL8ZHFHjYk4aHi_mA
-    &q=${event.venue.latitude},${event.venue.longitude}`}>
-</iframe>
-```
-By this point, the Events Index page was developed enough to connect each event to the single page. All I had to do was add the link to each card that routed to the events single page and switch out the hard coded ID for the ID defined in useParams. With Lok Sze continuing to work on the event type and date filters, I added a search bar and check box that removes sold out events. As this was a feature on a component developed by Lok Sze, I found it helpful to first familiarise myself with what was going on and understand how he had implemented the existing filters. This way I could ensure that my additions would work in tandem with the preexisting code. 
+### Testing the API
 
-The ‘I’m feeling lucky’ page was next on my to do list. This leveraged the single event component but fed in a random ‘lucky’ ID as a prop. The ID was generated from a get request for all non-sold-out events with a useEffect that set a randomly selected ID in state.
+The first step in the process was to test the API and ensure we understood how the API is structured. We read through the documentation to familiarise ourselves the endpoints the API provided, and tested them using Insomnia. Once we made sense of how the API worked, we determined which parameters along with the endpoint we would use to send our API requests.
+
+My partner and I also decided that for the single event pages, it would be useful to include Google Maps indicating the location of the event. I went away and found a Google link that catered to this, given the data that was returned to us from the Skiddle API request. Using the link, I dynamically changed the latitude and longitude for each venue, by using ```event.venue.latitude``` and ```event.venue.longitude```,  as this information was given to us from the Skiddle API. 
 ```
-  useEffect(() => {
-    const getEvents = async () => {
-      try {
-        const apiKey = 'api_key=7544cdafe70d0b9d8a15ae17a08a53fd'
-        const ldnCoord = 'latitude=51.509865&longitude=-0.118092&radius=40'
-        const { data } = await axios.get(`https://www.skiddle.com/api/v1/events/
-          ?${apiKey}&${ldnCoord}&ticketsavailable=true${eventCode}${minDate}${maxDate}`)
-        setEvents(data.results)
-      } catch (err) {
-        console.log(err)
-        setLuckyError(err.message ? err.message : err)
-      }
+src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyALd_bYvfEc51wNsGxL8ZHFHjYk4aHi_mA&q=${event.venue.latitude},${event.venue.longitude}`}>
+```
+### Displaying Events
+
+The second step of the process was to create the events index page, where the grid for the results returned from the API would be displayed.
+
+1. I sent a request to the API endpoint, with the parameters we wanted. Inside the ```useEffect```, using an async await function, I used the get method to return a response from the API. Using ```useState```, define a variable called ```events``` in which to store the returned results to be displayed. Unfortunately, this API returns a maximum of 100 results each time, rather than all results (which is understandable, given that there are a plethora of events that can be returned). So when it came to the filtering process, I had to pass the filter requirements in as parameters in the API url. And each time results were to be filtered, I would run a new get request to the API with the new parameters and display them accordingly. 
+```
+useEffect(() => {
+  const getEvents = async () => {
+    try {
+      const apiKey = 'api_key=7544cdafe70d0b9d8a15ae17a08a53fd'
+      const ldnCoord = 'latitude=51.509865&longitude=-0.118092&radius=40'
+      const { data } = await axios.get(`https://www.skiddle.com/api/v1/events/search/?${apiKey}&${ldnCoord}&descriptions=1&limit=100${eventCode}${minDate}${maxDate}${search}${forSale}`)
+      setEvents(data.results)
+    } catch (err) {
+      console.log(err)
+      setError(err.message ? err.message : err)
     }
-    getEvents()
-  }, [eventCode, minDate, maxDate])
-
-  useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * events.length)
-    events.length > 0 && setLuckyId(events[randomIndex].id)
-  }, [events])
+  }
+  getEvents()
+}, [eventCode, minDate, maxDate, search, forSale ])
 ```
-It felt necessary to then be able to filter the generated event by date and event type to actually make it useful. Since the other filters weren’t really necessary, I segmented out the relevant filters into another subcomponent to be used here.
-
-With the deadline approaching, we focused on smoothing out rough edges with SASS and Bootstrap.  
-
-
-## Challenges
-I had some persistent errors when linking up the single component to the ‘I’m feeling lucky’ page. I tried passing in a hardcoded ID as a prop in the execution of the single event component. This helped narrow down the location of the error and confirm that the single event component had been incorporated correctly. Then, I ran console logs in several places to understand what each state looked like at every stage. Talking myself through the flow of events, I realised the component was still trying to render before the luckyId state had been properly defined. The random ID was also trying to be set before events had been updated by the get request. These issues were fixed with a couple conditions on events.length, as shown above, and luckyId.length below.
-
-Inside the return:
+2. Mapping through the events array, along with Bootstrap components, I displayed each event in its own card. I included an image, and other crucial information, separating the text using icons from FontAwesome. If no results are returned, the user can see ‘no results found’.
 ```
-{luckyId.length > 0 && <EventSingle luckyId={luckyId} />}
-```
-
-## Wins
-I really enjoyed working on this pair project and felt we worked very well together - checking in and running ideas past each other regularly. We were both able to help each other with problems we were facing as sometimes an outside view can see things in a different perspective and provide a backboard for discussing ideas. We got a lot done quickly by prioritising and completing tasks one by one. 
-
-We leveraged components well to keep each section tidy and avoid repeating code. Whilst the web of components was at times a little confusing, it was good practice using props and understanding exactly which states were required where.
-```
-return (
-  <>
-    <TheNavbar />
-    <div className="filters">
-      <Container className="filters-container pt-4">
-        <FiltersLucky eventCode={eventCode} setEventCode={setEventCode} selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate} setMinDate={setMinDate} setMaxDate={setMaxDate} />
-      </Container>
-    </div>
-    {!luckyError ? 
-      luckyId.length > 0 ?
-        <EventSingle luckyId={luckyId} />
+<Row className="events-row mt-4">
+  {!error ?
+    events ? 
+      events.length > 0 ? 
+        events.map(event => {
+          const { id, eventname, date, venue, openingtimes, xlargeimageurl, minage, entryprice } = event
+          const eventDate = new Date(date).toDateString()
+          return (
+            <Col key={id} className="event-card mb-4 col-8 col-sm-6 col-md-4 offset-md-0 col-lg-3 offset-lg-0">
+              <Link to={`/events/${id}`}>
+                <Card>
+                  <div className="card-image" style={{ backgroundImage: `url(${xlargeimageurl})` }}></div>
+                  <Card.Body>
+                    <Card.Title className='mb-0'>{eventname}</Card.Title>
+                    <Card.Text className='mb-0'><span><FontAwesomeIcon className="icon" icon={faLocationDot}/></span>  {venue.name}</Card.Text>
+                    <Card.Text className='mb-0'><span><FontAwesomeIcon className="icon" icon={faCalendarDays}/></span>  {eventDate}</Card.Text>
+                    <Card.Text className='mb-0'><span><FontAwesomeIcon className="icon" icon={faClock}/></span>  {openingtimes.doorsopen} till {openingtimes.doorsclose}</Card.Text>
+                    <Card.Text className='mb-0'><span><FontAwesomeIcon className="icon" icon={faSterlingSign}/></span>  { entryprice ? `${entryprice}` : 'Free admission' }</Card.Text>
+                    <Card.Text className='mb-0'><span><FontAwesomeIcon className="icon" icon={faUser}/></span>  { (!minage || minage === '0') ? 'No age restriction' : `Minimum age ${minage}`}</Card.Text>
+                  </Card.Body>
+                </Card>
+              </Link>
+            </Col>
+          )
+        })
       :
-      <Spinner className="my-5" animation="border" variant="warning" />
+      <Container className='no-container'>
+        <h1>No events found</h1>
+      </Container>
     :
+    <Spinner className="my-5" animation="border" variant="warning" />
+  :
+  <Container className='no-container'>
     <h1>Uh oh! Something went wrong...</h1>
-    }
-  </>
-)
+  </Container>
+  }
+</Row>
 ```
-The functionality of the filters was very successful. They all work together and are reset when the Navbar link is clicked. I also like that the filters bar sticks at the top of the page as you scroll down.
+
+### Creating Filters
+
+The next step in the process was to create the filters and have them return specific results.
+
+**Filter by Type of Event**
+
+1. As mentioned earlier, each filter should return a response from a new get request. In order to filter for types of event, an ```eventTypes``` array is created, inside of which contains individual objects, each containing 2 keys, ```code``` and ```value```. The value for the ```code``` in the key-value pair is the parameter to be included in the API url. The value of the ```value``` in the key-value pair is what should be displayed on the filter, which will also be the value of the select dropdown. For example, when ‘All’ is selected, this means no parameter is to be passed, hence the ```code``` is an empty string. 
+```
+const eventTypes = [ 
+  { code:  '',
+    value: 'All'},
+  { code: '&eventcode=FEST', 
+    value: 'Festivals' },
+  { code: '&eventcode=LIVE', 
+    value: 'Live music' },
+  { code: '&eventcode=CLUB', 
+    value: 'Clubbing/Dance music' },
+  { code: '&eventcode=DATE', 
+    value: 'Dating event' },
+  { code: '&eventcode=THEATRE', 
+    value: 'Theatre/Dance' },
+  { code: '&eventcode=COMEDY', 
+    value: 'Comedy' },
+  { code: '&eventcode=EXHIB', 
+    value: 'Exhibitions and Attractions' },
+  { code: '&eventcode=KIDS', 
+    value: 'Kids/Family event' },
+  { code: '&eventcode=BARPUB', 
+    value: 'Bar/Pub event' },
+  { code: '&eventcode=LGB', 
+    value: 'Gay/Lesbian event' },
+  { code: '&eventcode=SPORT', 
+    value: 'Sporting event' },
+  { code: '&eventcode=ARTS', 
+    value: 'The Arts' },
+]
+```
+2. ```optionValues``` was defined, which maps though the eventTypes array and returns an array of the ```value``` values. 
+```
+const optionValues = eventTypes.map(type => type.value)
+```
+3. The function ```typeChange``` was created to handle when the user chooses a new type to filter. The function will find the object containing the value selected by the user, and set React state ```eventCode``` as the value of the ```code``` key in the object by using ```setEventCode```. ```eventCode``` will now be the parameter which is included in the API url. 
+```
+const [ eventCode, setEventCode ] = useState('')
+const [ selectValue, setSelectValue ] = useState('All')
+```
+```
+const typeChange = (e) => {
+  const findObject = eventTypes.find(type => type.value === e.target.value)
+  setEventCode(findObject.code)
+  setSelectValue(e.target.value)
+}
+```
+
+**Date Filter**
+
+To create the date-picker, I imported and used the date-picker from React. The function ```dateChange``` is used to handle when a new date is chosen. ```setSelectedDate``` sets the React state ```selectedDate``` (which is, by default, today's date) the date to the one that is selected. We define the ```minDateFormat``` and ```maxDateFormat``` by taking the date selected, transforming it to ISO string then splitting it and finally taking the first item in the object returned to get the date in dd-mm-yyyy format, which is what is required to be passed as a parameter. This then will be passed into the API url. 
+```
+  const [ selectedDate, setSelectedDate ] = useState(new Date())
+  const [ minDate, setMinDate ] = useState('')
+  const [ maxDate, setMaxDate ] = useState('')
+```
+```
+const dateChange = (date) => {
+  setSelectedDate(date)
+  const minDateFormat = `&minDate=${date.toISOString().split('T')[0]}`
+  const maxDateFormat = `&maxDate=${date.toISOString().split('T')[0]}`
+  setMinDate(minDateFormat)
+  setMaxDate(maxDateFormat)
+}
+```
+
+**Reset**
+
+Finally, in the navbar, link this to the pages specified. In order that all filters are reset when the user presses ‘Show All Events’, we run a function ```resetAll```  when it is clicked. This function resets all states to empty strings or default values.
+
+```
+const resetAll = () => {
+  setEventCode('')
+  setMinDate('')
+  setMaxDate('')
+  setSearch('')
+  setForSale('')
+  setChecked(false)
+  setInput('')
+  setSelectValue('All')
+  setSelectedDate(new Date())
+}
+```
+
+### Bugs
+
+- Some images might not load, because we were not permitted or authorised to use these items. 
+- The format of events prices may seem inconsistent or confusing, as this was how the API returned its results. 
+
+---
+
+## Reflection
+
+### Challenges 
+
+- Working as a pair for the first time in a project was a challenge, as we would sometimes find ourselves working on the same thing when we intended to work on separate sections. This also proved to be a little problematic when it came to merging on GitHub. This was a good project to demonstrate the need for clear communication within the team. 
+
+### Wins
+
+- Using the ```eventTypes``` array of objects, because streamlined the filtering of event types process. Rather than having to write many lines of conditional JavaScript, it is much cleaner to use the array of objects, and write some code to match the filter value with that in the array. This also makes it a lot simplier if there were ever any additions to the types of events, as all I would need to do is add one object, rather than writing more lines of conditional code. 
+- Using React hooks and React components, and seeing how it can all come together in one app. 
+- Using Bootstrap aided the design process and saved time on styling when time was limited. 
+
+### Key Takeaways
+
+- Solidfying my understanding and practical usage of useState and useEffect. Being able to see what works and what doesn't when using these helped me to learn from mistakes and from trial and error. 
+- It is important to keep clear, open lines of communication when working within a group. However, I enjoyed working in a group, because it opens the doors for bigger, better ideas, more efficient problem solving and fresh perspectives.  
+
+### Future Improvements
+
+- Use of pagination to include more results, particularly for results filtered with fewer results returned in the first 100 events. 
+- The ability to select a range of dates instead of just one date. 
 
 
-## Key Takeaways
-- Working with an API
-- Get requests and async functions
-- useState and useEffect hooks
-- Leveraging components
-- Browser router from React Router Dom
-- Working as a pair on this type of project and merging code with Git
 
-
-## Bugs
-- While the event(s) are loading, a ‘no events found’ message is displayed as well as when no events are actually found
-- There are some inconsistencies in the API that could be ironed out. For example, the format of the event price listed varies, sometimes including a pound sign, sometimes just a number.
-- Some of the navbar links are broken
-
-
-## Future Improvements
-- With less than 2 days to complete the assignment and several features we wanted to implement, we didn’t spend too much time on the styling. Whilst it all looks clean, it would be nice to get a bit more creative with the website name and home page etc. 
-- Add a spinner whilst the requests are sending and events pages loading
-- Better error handling
-- Functionality to like events or add to favourites that can be banked on a separate page
-- The ability to register and log in so favourites can be saved
-- In the initial mock up of the single events page, it displayed whether the event was sold out or if tickets were still available using the ‘tickets’ key in the API that had a boolean value. However, towards the end I realised that this was not always accurate with some events being incorrectly tagged as sold out. It would be good to use the ticketsavailable parameter on the initial request to accurately determine this.

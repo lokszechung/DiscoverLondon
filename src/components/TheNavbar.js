@@ -4,7 +4,6 @@ import { Link } from "react-router-dom"
 const TheNavbar = ({ setEventCode, setSelectedDate, setMinDate, setMaxDate, setSearch, setForSale, setChecked, setInput, setSelectValue }) => {
 
   const resetAll = () => {
-    console.log('reset')
     setEventCode('')
     setMinDate('')
     setMaxDate('')
