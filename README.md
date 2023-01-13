@@ -1,4 +1,4 @@
-# Discover London ***REDEPLOY***
+# Discover London 
 
 This is my second project completed at the end of week 6 of General Assembly's Software Engineering bootcamp, having learned some advanced JavaScript, and the basic fundamentals of APIs and React for two weeks.
 
